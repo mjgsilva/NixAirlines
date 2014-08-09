@@ -1,5 +1,5 @@
 # NixAirlines
-#### A system to support the interaction between a Flights Company and Travels Agencies or Particulars. Main goal: Book and Manage Flights.
+#### A system to support the interaction between an Airline and Travel Agencies or Particulars. Main goal: Book and Manage Flights.
 
 Written in C (unix) and all the communication are supported by namedpipes.
 
