@@ -12,28 +12,28 @@ Written in C (unix) and all the communication are supported by namedpipes.
 
 ### Commands supported by the System:
 #### Terminal (Travel agencies or particulars):
-- login <username> <password> (usercredentials.png)
+- login [username] [password]
 - logout
 - exit
 - help
-- changepassword <old password> <new password>
+- changepassword [old password] [new password]
 - list (Flights) 
-- search <departure> <arrival>
-- book <flight id> <passport id>
-- cancel <flight id> <passport id>
+- search [departure] [arrival]
+- book [flight id] [passport id]
+- cancel [flight id] [passport id]
 
 ![Screenshot](https://raw.github.com/mjgsilva/NixAirlines/master/usercredentials.png)
 
 #### Admin: (Password: adminpassword.txt)
-- login <password>
+- login [password]
 - shutdown
-- addcity <cityname>
-- delcity <cityname>
+- addcity [cityname]
+- delcity [cityname]
 - seepast
-- addflight <id> <departure city> <arrival city> <date>
-- delflight <id>
-- changedate <day>
+- addflight [id] [departure city] [arrival city] [date]
+- delflight [id]
+- changedate [day]
 - getdate
 - info
-- adduser <username> <password>
+- adduser [username] [password]
 - exit
