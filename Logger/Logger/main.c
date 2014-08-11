@@ -43,6 +43,9 @@ int loggersUp()
                 outputs(in,LogFile);
         }
     } while(1);
+    
+    free(in);
+    in = NULL;
 }
 
 int main()

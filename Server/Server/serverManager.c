@@ -110,5 +110,13 @@ int serversUp()
                     loggersDown(BackboneGlobal);
         } 
     } while (1);
+    
+    free(in);
+    free(out);
+    free(tempUser);
+    in = NULL;
+    out = NULL;
+    tempUser = NULL;
+    
     return 0;
 }

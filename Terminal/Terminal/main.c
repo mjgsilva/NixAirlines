@@ -66,9 +66,7 @@ int fillArgs(char *input, char *args[], int nArgs[], int idArg, char *extendedAr
         len = strlen(temp)+1;
         args[i] = malloc(len);
         strcpy(args[i], temp);
-        
-
-        
+                
         if(i==0)
         {
             strcpy(extendedArgs, temp);
@@ -199,7 +197,7 @@ int main(){
                 }
                 else
                     exit(0);
-            } else
+            } else {
                 if(strcmp(cmd,"login") == 0)
                 {
                     request->len = 0;
@@ -215,14 +213,19 @@ int main(){
                     {
                         validLogin = 1;
                         strcpy(username,request->username);
-                    } else
+                    }
+                    else
                     {
                         printf("Invalid login!\n");
                     }
                 } else {
                     pValidLogin = &validLogin;
                     taskManager(cmd, extendedArgs, pValidLogin, pid);
-                } 
+                }
+            }
         }
 	}
+    
+    free(request);
+    request = NULL;
 }

@@ -188,6 +188,53 @@ void saveFlights(pBackbone bbAux)
     fclose(f);
 }
 
+void freeBackbone()
+{
+    int i;
+    pUsers userAux = NULL;
+    pCity cityAux = NULL;
+    pFlight flightAux = NULL;
+    
+    if(BackboneGlobal->logger != NULL)
+    {
+        free(BackboneGlobal->logger);
+        BackboneGlobal->logger = NULL;
+    }
+    
+    if(BackboneGlobal->admin != NULL)
+    {
+        free(BackboneGlobal->admin);
+        BackboneGlobal->admin = NULL;
+    }
+    
+    for(i = 0; i < BackboneGlobal->nUsers; i++)
+    {
+        userAux = BackboneGlobal->fUser->nUser;
+        free(BackboneGlobal->fUser);
+        BackboneGlobal->fUser = userAux;
+    }
+    
+    for(i = 0; i < BackboneGlobal->nCities; i++)
+    {
+        cityAux = BackboneGlobal->fCity->nCity;
+        free(BackboneGlobal->fCity);
+        BackboneGlobal->fCity = cityAux;
+    }
+    
+    for(i = 0; i < BackboneGlobal->nFlights; i++)
+    {
+        flightAux = BackboneGlobal->fFlight->nFlight;
+        free(BackboneGlobal->fFlight);
+        BackboneGlobal->fFlight = flightAux;
+    }
+    
+    BackboneGlobal->lUser = NULL;
+    BackboneGlobal->lCity = NULL;
+    BackboneGlobal->lFlight = NULL;
+    free(BackboneGlobal);
+    BackboneGlobal = NULL;
+}
+
 void shutdownT(pBackbone BackboneAux)
 {
     sendSignalToTerm(BackboneAux);
@@ -195,6 +242,7 @@ void shutdownT(pBackbone BackboneAux)
     sendSignalToLog(BackboneAux);
     saveFlights(BackboneAux);
     saveUsers(BackboneAux);
+    freeBackbone();
     printf("System is shutting down!\n");
     unlink(npServer);
     exit(0);
@@ -207,8 +255,9 @@ void shutdownTT() /* Using SIGUSR1 to shutdown the system - BackboneGlobal is a 
     sendSignalToLog(BackboneGlobal);
     saveFlights(BackboneGlobal);
     saveUsers(BackboneGlobal);
-    unlink(npServer);
+    freeBackbone();
     printf("System is shutting down!\n");
+    unlink(npServer);
     exit(0);
 }
 

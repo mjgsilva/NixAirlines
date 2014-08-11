@@ -84,7 +84,6 @@ int writePipe(pOutbound out)
 {
     int outbox;
     
-    
     outbox = open(npServer, O_WRONLY);
     if((access(npServer,R_OK)) == -1)
     {
@@ -124,6 +123,8 @@ void shutdownLog()
     writePipe(out);
     
     printf("Central is shutting down!\n");
+    free(out);
+    out = NULL;
     unlink(npLog);
     unlink(TEMP);
     exit(0);

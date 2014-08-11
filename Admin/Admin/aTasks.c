@@ -21,7 +21,7 @@ void responseText(pInboundExtended inAux)
 
 void shutAll()
 {
-    printf("Shutting down!\n");
+    printf("Central is shutting down!\n");
     unlink(npAdmin);
     exit(0);
 }
@@ -38,6 +38,9 @@ int getDate(int pid, char *password)
     strcpy(request->pw,password);
     
     response = startCommunication(request,pid);
+    
+    free(request);
+    request = NULL;
     
     if(response->valid > 0)
     {
@@ -59,6 +62,8 @@ int shutdown(int pid, char *password)
     strcpy(request->pw,password);
     
     response = startCommunication(request,pid);
+    free(request);
+    request = NULL;
     return 0;
 }
 
@@ -78,6 +83,9 @@ int delCity(char *extendedArgs, int pid, char *password)
     request->args = extendedArgs;
     
     response = startCommunication(request,pid);
+    
+    free(request);
+    request = NULL;
     
     if(response->valid == 1)
     {
@@ -106,6 +114,9 @@ int addCity(char *extendedArgs, int pid, char *password)
     
     response = startCommunication(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         printf("City added: %s.\n", request->args);
@@ -132,6 +143,9 @@ int delFlight(char *extendedArgs, int pid, char *password)
     request->args = extendedArgs;
     
     response = startCommunication(request,pid);
+    
+    free(request);
+    request = NULL;
     
     if(response->valid == 1)
     {
@@ -160,6 +174,9 @@ int changeDate(char *extendedArgs, int pid, char *password)
     
     response = startCommunication(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         printf("Date: updated!\n");
@@ -182,6 +199,9 @@ int getInfo(int pid, char *password)
     strcpy(request->pw,password);
     
     response = startCommunicationExtended(request,pid);
+    
+    free(request);
+    request = NULL;
     
     if(response->valid == 1)
     {
@@ -209,6 +229,9 @@ int getPast(int pid, char *password)
     
     response = startCommunicationExtended(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         if(response->len > 0)
@@ -232,7 +255,10 @@ int getCities(int pid, char *password)
     strcpy(request->pw,password);
     
     response = startCommunicationExtended(request,pid);
-        
+    
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         if(response->len > 0)
@@ -258,6 +284,9 @@ int addUser(char *extendedArgs, int pid, char *password)
     request->nArgs = 2;
     strcpy(request->pw,password);
     request->args = extendedArgs;
+    
+    free(request);
+    request = NULL;
     
     response = startCommunication(request,pid);
     
@@ -288,6 +317,9 @@ int addFlight(char *extendedArgs, int pid, char *password)
     
     response = startCommunication(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         printf("Flight added!\n");
@@ -310,6 +342,10 @@ int logout(int *validLogin, int pid, char *password)
     strcpy(request->pw,password);
 
     response = startCommunication(request,pid);
+    
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         validLogin = 0;

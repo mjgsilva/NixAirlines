@@ -41,14 +41,21 @@ int cancelFlight(char *extendedArgs, int pid)
     
     response = startCommunicationExtended(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         printf("Passport removed from the flight manifest\n");
+        free(response);
+        response = NULL;
         return 1;
     }
     else
     {
         printf("Error: cancel flight. Can not find Passport on the flight manifest\n");
+        free(response);
+        response = NULL;
         return 0;
     }
 }
@@ -69,14 +76,21 @@ int bookFlight(char *extendedArgs, int pid)
     
     response = startCommunicationExtended(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         printf("Passport added to the flight manifest.\n");
+        free(response);
+        response = NULL;
         return 1;
     }
     else
     {
         printf("Error: book flight. Passport is already on the manifest?\n");
+        free(response);
+        response = NULL;
         return 0;
     }
 }
@@ -97,12 +111,20 @@ int searchFlight(char *extendedArgs, int pid)
     
     response = startCommunicationExtended(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         responseText(response);
+        free(response);
+        response = NULL;
         return 1;
     } else
         printf("No flight available between these cities.\n");
+    
+    free(response);
+    response = NULL;
     return 0;
 }
 
@@ -122,13 +144,20 @@ int changePassword(char *extendedArgs, int pid)
     
     response = startCommunication(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         printf("Done. Logout and then login.\n");
+        free(response);
+        response = NULL;
         return 1;
     } else {
         printf("Password verification failed!\n");
     }
+    free(response);
+    response = NULL;
     return 0;
 }
 
@@ -144,14 +173,23 @@ int flightList(int pid)
     
     response = startCommunicationExtended(request,pid);
     
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         if(response->len > 0)
             responseText(response);
         else
             printf("No flights at the moment!\n");
+        
+        free(response);
+        response = NULL;
         return 1;
     }
+    
+    free(response);
+    response = NULL;
     return 0;
 }
 
@@ -165,10 +203,18 @@ int logout(int *validLogin, int pid)
     request->userLevel = 2;
     request->jobRef = 2;
     response = startCommunication(request,pid);
+    
+    free(request);
+    request = NULL;
+    
     if(response->valid == 1)
     {
         *validLogin = 0;
+        free(response);
+        response = NULL;
         return 1;
     }
+    free(response);
+    response = NULL;
     return 0;
 }

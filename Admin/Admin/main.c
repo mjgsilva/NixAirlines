@@ -249,7 +249,7 @@ int main(){
                 }
                 else
                     shutAll();
-            } else
+            } else {
                 if(strcmp(cmd,"login") == 0)
                 {
                     request->len = 0;
@@ -281,7 +281,11 @@ int main(){
                 } else {
                     pValidLogin = &validLogin;
                     taskManager(cmd, extendedArgs, pValidLogin, pid, password);
-                } 
+                }
+            }
         }
 	}
+    free(request);
+    request = NULL;
+    return 0;
 }

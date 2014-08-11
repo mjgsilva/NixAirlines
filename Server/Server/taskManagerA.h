@@ -40,6 +40,7 @@ int getCitiesT(pBackbone BackboneAux);
 int getPast(pBackbone BackboneAux);
 void shutdownT(pBackbone BackboneAux);
 void shutdownTT();
+void freeBackbone();
 void sendSignalToAdmin(pBackbone BackboneAux);
 void sendSignalToTerm(pBackbone BackboneAux);
 void sendSignalToTermByPid(int pid);
